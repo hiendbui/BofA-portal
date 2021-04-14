@@ -4,13 +4,18 @@ const validText = require('./valid-text');
 module.exports = function validateRegisterInput(data) {
   let errors = {};
 
-  data.fullName = validText(data.fullName) ? data.fullName : '';
+  data.firstName = validText(data.firstName) ? data.firstName : '';
+  data.lastName = validText(data.lastName) ? data.lastName : '';
   data.email = validText(data.email) ? data.email : '';
   data.password = validText(data.password) ? data.password : '';
   data.password2 = validText(data.password2) ? data.password2 : '';
 
-  if (Validator.isEmpty(data.fullName)) {
-    errors.fullName = 'Full Name field is required';
+  if (Validator.isEmpty(data.firstName)) {
+    errors.firstName = 'First Name field is required';
+  }
+
+  if (Validator.isEmpty(data.lastName)) {
+    errors.lastName = 'Last Name field is required';
   }
 
   if (Validator.isEmpty(data.email)) {

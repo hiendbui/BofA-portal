@@ -7,12 +7,16 @@ const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
+const config = require('../../config');
+const BoxSDK = require('box-node-sdk');
+const sdk = BoxSDK.getPreconfiguredInstance(config);
 
 router.get('/current', passport.authenticate('jwt', {session: false}), (req, res) => {
   res.json({
     id: req.user.id,
     email: req.user.email,
-    fullName: req.user.fullName
+    firstName: req.user.firstName,
+    lastName: req.user.lastName
   });
 })
 
@@ -31,7 +35,8 @@ router.post('/register', (req, res) => {
             const newUser = new User({
                 email: req.body.email,
                 password: req.body.password,
-                fullName: req.user.fullName
+                firstName: req.body.firstName,
+                lastName: req.body.lastName
             })
 
             bcrypt.genSalt(10, (err, salt) => {
@@ -40,7 +45,12 @@ router.post('/register', (req, res) => {
                     newUser.password = hash;
                     newUser.save()
                         .then(user => {
-                            const payload = { id: user.id, email: user.email };
+                            const payload = { 
+                                id: user.id, 
+                                email: user.email, 
+                                firstName: user.firstName,
+                                lastName: user.lastName
+                            };
                             //key expires in 1 hour
                             jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
                                 res.json({
@@ -48,6 +58,20 @@ router.post('/register', (req, res) => {
                                     token: "Bearer " + token
                                 });
                             });
+
+                            const client = sdk.getAppAuthClient('enterprise');
+                            // client.enterprise.addUser(
+                            //     null,
+	                        //     user.fullName,
+	                        //     {
+		                    //         is_platform_access_only: true,
+                            //         external_app_user_id: user.id
+	                        //     })
+                            
+                            client.folders.create('0', `${user.fullName.split}`)
+                            client.files.uploadFile('135508046790', 'HienBuiResume.pdf', stream)
+                            	.then(fileObject => { console.log(fileObject) })
+                            	.catch(error => {  console.log(error) });
                         })
                         .catch(err => console.log(err))
                 })
@@ -75,7 +99,12 @@ router.post('/login', (req, res) => {
             bcrypt.compare(password, user.password)
                 .then(isMatch => {
                     if (isMatch) {
-                        const payload = { id: user.id, email: user.email };
+                        const payload = { 
+                            id: user.id, 
+                            email: user.email, 
+                            firstName: user.firstName,
+                            lastName: user.lastName
+                        };
 
                         jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
                             res.json({
