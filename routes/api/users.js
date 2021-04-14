@@ -10,6 +10,7 @@ const validateLoginInput = require('../../validation/login');
 const config = require('../../config');
 const BoxSDK = require('box-node-sdk');
 const sdk = BoxSDK.getPreconfiguredInstance(config);
+const client = sdk.getAppAuthClient('enterprise');
 
 router.get('/current', passport.authenticate('jwt', {session: false}), (req, res) => {
   res.json({
@@ -58,20 +59,13 @@ router.post('/register', (req, res) => {
                                     token: "Bearer " + token
                                 });
                             });
-
-                            const client = sdk.getAppAuthClient('enterprise');
-                            // client.enterprise.addUser(
-                            //     null,
-	                        //     user.fullName,
-	                        //     {
-		                    //         is_platform_access_only: true,
-                            //         external_app_user_id: user.id
-	                        //     })
                             
-                            client.folders.create('0', `${user.fullName.split}`)
-                            client.files.uploadFile('135508046790', 'HienBuiResume.pdf', stream)
-                            	.then(fileObject => { console.log(fileObject) })
-                            	.catch(error => {  console.log(error) });
+                            const folderId = `${user.lastName}, ${user.firstName}_${user.id}`
+                            client.folders.create('0', folderId)
+                                .then(res => {
+                                    newUser.folderId = parseInt(res.id);
+                                    newUser.save();
+                                })
                         })
                         .catch(err => console.log(err))
                 })
