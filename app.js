@@ -9,14 +9,22 @@ const path = require('path');
 const config = require('./config');
 const BoxSDK = require('box-node-sdk');
 const sdk = BoxSDK.getPreconfiguredInstance(config);
-const client = sdk.getAppAuthClient('enterprise');
+// var authorize_url = sdk.getAuthorizeURL({
+// 	response_type: 'code'
+// });
+// console.log(authorize_url)
+const client = sdk.getAppAuthClient('user', '15794584626');
+// var client = sdk.getBasicClient('gZH3f1wduBDGdGylYy7olUzCFhv2dRQg');
 
 var fs = require('fs');
 var stream = fs.createReadStream('./HienBuiResume.pdf');
-var folderID = '0'
-client.files.uploadFile(folderID, 'HienBuiResume.pdf', stream)
-	.then(fileObject => { console.log(fileObject) })
-	.catch(error => {  console.log(error) });
+client.folders.create('0', '0')
+  .then(folder => {console.log(folder)})
+  .catch(error => {  console.log(error) })
+
+// client.files.uploadFile('0', 'HienBuiResume.pdf', stream)
+// 	.then(fileObject => { console.log(fileObject) })
+// 	.catch(error => {  console.log(error) });
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
