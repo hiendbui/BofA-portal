@@ -1,0 +1,33 @@
+.navbar {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    .nav-details {
+        text-align: right;
+        margin-top:-110px;
+        width:1100px;
+        margin-left: auto;
+        margin-right: auto;
+        @media screen and (min-width: 1100px) {
+            padding-right: 4.5vw;
+        }
+        @media screen and (min-width: 1165px) {
+            padding-right: 100px;
+        }
+        color:white;
+        button {
+            border: none;
+            font-weight:bold;
+        }
+        >*{
+            margin-left:10px;
+        }
+    }
+}
+#nav {
+    margin-top:-5px;
+    width:100%;
+    width:1100px;
+    margin-left: auto;
+    z-index: 0;
+}
