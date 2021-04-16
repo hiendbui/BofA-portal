@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../../actions/session_actions';
-// import './session_form.scss';
 
 function LoginForm() {
   const errors = useSelector(state => state.errors.session);
@@ -26,7 +25,7 @@ function LoginForm() {
   // Render the session errors if there are any
   function renderErrors() {
     return(
-      <ul className="errors">
+      <ul className="errors signin">
         {Object.keys(errors).map((error, i) => (
           <li key={`error-${i}`}>
             {errors[error]}

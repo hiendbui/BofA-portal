@@ -27,6 +27,9 @@
             font-weight: 100;
             z-index: 999;
         }
+        .toggle-btn:hover {
+            text-decoration: underline;
+        }
     }
 }
 #landing {
@@ -69,4 +72,7 @@
     position: absolute;
     margin-top:-45px;
     font-size: 13px;
+}
+.signin {
+    margin-top:-70px;
 }

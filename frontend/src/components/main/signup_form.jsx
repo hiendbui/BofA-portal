@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { signup } from '../../actions/session_actions';
-// import './session_form.scss';
 
 function SignupForm() {
   const errors = useSelector(state => state.errors.session);
@@ -79,7 +78,7 @@ function SignupForm() {
             placeholder="Confirm Password"
           />
           <br/>
-          <input className= "submit" type="submit" value="Open an Account" />
+          <input className= "submit" type="submit" value="Open Account" />
         </div>
       </form>
     </div>
