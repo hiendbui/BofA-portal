@@ -5,9 +5,9 @@ import SignupForm from './signup_form';
 import { clearErrors } from '../../actions/session_actions';
 import LandingPage from "../../assets/images/landing_page.png";
 
-import './main.scss'
+import './landing.scss'
 
-function MainPage() {
+function Landing() {
   const dispatch = useDispatch();
 
   const [formType, toggleForm] = useState('login')
@@ -34,4 +34,4 @@ function MainPage() {
   
 }
 
-export default MainPage;
+export default Landing;
