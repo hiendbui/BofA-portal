@@ -1,13 +1,14 @@
 import React from 'react';
-// import { AuthRoute, InstructorRoute } from '../util/route_util';
+import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import { Route, Switch } from 'react-router-dom';
+import MainPage from './main/main_page';
 
 
 
 const App = () => (
   <div>
     <Switch>
-        {/* <Route exact path="/" component={MainPage} />*/}
+        <AuthRoute exact path="/" component={MainPage} />
     </Switch>
   </div>
 );
