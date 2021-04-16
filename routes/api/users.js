@@ -15,7 +15,7 @@ const client = sdk.getAppAuthClient('enterprise');
 router.get('/current', passport.authenticate('jwt', {session: false}), (req, res) => {
   res.json({
     id: req.user.id,
-    email: req.user.email,
+    username: req.user.username,
     firstName: req.user.firstName,
     lastName: req.user.lastName
   });
@@ -28,13 +28,13 @@ router.post('/register', (req, res) => {
         return res.status(400).json(errors);
     }
 
-    User.findOne({ email: req.body.email })
+    User.findOne({ username: req.body.username })
     .then(user => {
         if (user) {
-            return res.status(400).json({email: "Account already associated with email"})
+            return res.status(400).json({username: "Account already associated with Online ID"})
         } else {
             const newUser = new User({
-                email: req.body.email,
+                username: req.body.username,
                 password: req.body.password,
                 firstName: req.body.firstName,
                 lastName: req.body.lastName
@@ -48,7 +48,7 @@ router.post('/register', (req, res) => {
                         .then(user => {
                             const payload = { 
                                 id: user.id, 
-                                email: user.email, 
+                                username: user.username, 
                                 firstName: user.firstName,
                                 lastName: user.lastName
                             };
@@ -81,13 +81,13 @@ router.post('/login', (req, res) => {
         return res.status(400).json(errors);
     }
 
-    const email = req.body.email;
+    const username = req.body.username;
     const password = req.body.password;
     
-    User.findOne({ email })
+    User.findOne({ username })
         .then(user => {
             if (!user) {
-                return res.status(404).json({ email: "This user does not exist."});
+                return res.status(404).json({ username: "This user does not exist."});
             }
             
             bcrypt.compare(password, user.password)
@@ -95,7 +95,7 @@ router.post('/login', (req, res) => {
                     if (isMatch) {
                         const payload = { 
                             id: user.id, 
-                            email: user.email, 
+                            username: user.username, 
                             firstName: user.firstName,
                             lastName: user.lastName
                         };

@@ -6,7 +6,7 @@ module.exports = function validateRegisterInput(data) {
 
   data.firstName = validText(data.firstName) ? data.firstName : '';
   data.lastName = validText(data.lastName) ? data.lastName : '';
-  data.email = validText(data.email) ? data.email : '';
+  data.username = validText(data.username) ? data.username : '';
   data.password = validText(data.password) ? data.password : '';
   data.password2 = validText(data.password2) ? data.password2 : '';
 
@@ -18,8 +18,8 @@ module.exports = function validateRegisterInput(data) {
     errors.lastName = 'Last Name field is required';
   }
 
-  if (Validator.isEmpty(data.email)) {
-    errors.email = 'Email field is required';
+  if (Validator.isEmpty(data.username)) {
+    errors.username = 'Online ID field is required';
   }
 
   if (Validator.isEmpty(data.password)) {
