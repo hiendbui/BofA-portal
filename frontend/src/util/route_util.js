@@ -46,7 +46,7 @@ const Admin = ({ component: Component, loggedIn, isAdmin, ...rest }) => (
 
 const mapStateToProps = state => ({
     loggedIn: state.session.isAuthenticated,
-    isAdmin: state.session.user.isAdmin
+    isAdmin: state.session.user.username === 'admin'
 });
 
 export const AuthRoute = withRouter(connect(mapStateToProps)(Auth));
