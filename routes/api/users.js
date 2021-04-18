@@ -17,7 +17,8 @@ router.get('/current', passport.authenticate('jwt', {session: false}), (req, res
     id: req.user.id,
     username: req.user.username,
     firstName: req.user.firstName,
-    lastName: req.user.lastName
+    lastName: req.user.lastName,
+    folderId: req.user.folderId
   });
 })
 
@@ -63,7 +64,7 @@ router.post('/register', (req, res) => {
                             const folderId = `${user.lastName}, ${user.firstName}_${user.id}`
                             client.folders.create('0', folderId)
                                 .then(res => {
-                                    newUser.folderId = parseInt(res.id);
+                                    newUser.folderId = res.id;
                                     newUser.save();
                                     client.folders.create(res.id, 'Identity Documents');
                                     client.folders.create(res.id, 'Tax Returns');
@@ -101,7 +102,8 @@ router.post('/login', (req, res) => {
                             id: user.id, 
                             username: user.username, 
                             firstName: user.firstName,
-                            lastName: user.lastName
+                            lastName: user.lastName,
+                            folderId: user.folderId
                         };
 
                         jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
