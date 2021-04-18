@@ -16,8 +16,8 @@ function Landing() {
   const buttonValue = formType === 'login' ? 'Open an Account' : 'Log into Account'
   
   return (
-    <div className="main">
-        <img id='landing' src={LandingPage} />
+    <div className="landing">
+        <img id='landing-img' src={LandingPage} />
         <div className='session-form-container'>
           {sessionForm}
           <button className='toggle-btn' 
