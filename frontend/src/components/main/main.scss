@@ -1,7 +1,53 @@
-.content-uploader {
+.main {
     width:1100px;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 250px;
+    margin-top: 115px;
+    .profile {
+
+        margin-left: 25px;
+        h1, h2 {
+            text-align: left;
+        }
+        h1 {
+            font-size: 20px;
+        }
+        h2 {
+            font-size: 14px;
+        }
+        
+        img{ 
+            float:left;
+            height:50px;
+            border: 1px solid rgb(196, 196, 196);
+            margin-right: 20px;
+        }
+    }
+    .body {
+        margin-top:10vh;
+        h1 {
+            font-size:30px;
+        }
+    }
 }
+.content-uploader {
+    height: 60vh;
+}
+
+.apply-btns>*{
+    margin-top:40px;
+    text-align:center;
+    background-color:#0065B3;
+    border-color: white;
+    color:white;
+    font-size: 18px;
+    padding:10px;
+    margin-left:15px;
+    margin-right:15px;
+   }
+.apply-btns>*:hover {
+     transition: 0.4s;
+     border-color:white;
+     background-color: #005291;
+ }
