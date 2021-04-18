@@ -2,6 +2,7 @@ import * as APIUtil from '../util/session_api_util';
 import jwt_decode from 'jwt-decode';
 
 export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
+export const RECEIVE_TOKEN = "RECEIVE_TOKEN";
 export const RECEIVE_SESSION_ERRORS = "RECEIVE_SESSION_ERRORS";
 export const CLEAR_SESSION_ERRORS = "CLEAR_SESSION_ERRORS";
 export const RECEIVE_USER_LOGOUT = "RECEIVE_USER_LOGOUT";
@@ -10,6 +11,12 @@ export const RECEIVE_USER_LOGOUT = "RECEIVE_USER_LOGOUT";
 export const receiveCurrentUser = currentUser => ({
     type: RECEIVE_CURRENT_USER,
     currentUser
+});
+
+
+export const receiveToken = token => ({
+    type: RECEIVE_TOKEN,
+    token
 });
 
 export const receiveErrors = errors => ({
@@ -47,6 +54,12 @@ export const login = user => dispatch => (
     .catch(err => {
         dispatch(receiveErrors(err.response.data));
     })
+)
+
+export const fetchToken = () => dispatch => (
+    APIUtil.fetchToken().then(res => (
+        dispatch(receiveToken(res.data))
+    ))
 )
 
 

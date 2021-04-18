@@ -1,9 +1,11 @@
 import { RECEIVE_CURRENT_USER, 
-         RECEIVE_USER_LOGOUT } from '../actions/session_actions';
+         RECEIVE_USER_LOGOUT,
+        RECEIVE_TOKEN } from '../actions/session_actions';
 
 const initialState = {
   isAuthenticated: false,
-  user: {}
+  user: {},
+  token: ''
 };
 
 export default function(state = initialState, action) {
@@ -14,6 +16,11 @@ export default function(state = initialState, action) {
         isAuthenticated: !!action.currentUser,
         user: action.currentUser
       };
+    case RECEIVE_TOKEN:
+    return {
+      ...state,
+      token: action.token
+    };
     case RECEIVE_USER_LOGOUT:
       return {
         isAuthenticated: false,
