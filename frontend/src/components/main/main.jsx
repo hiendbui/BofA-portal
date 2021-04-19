@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchToken } from '../../actions/session_actions';
 import { createFolder } from '../../actions/folder_actions';
@@ -10,7 +10,7 @@ import './main.scss'
 
 function Main() {
     const dispatch = useDispatch();
-    dispatch(fetchToken());
+    useEffect(()=>dispatch(fetchToken()),[]);
    
     const token = useSelector(state => state.session.token);
     const user = useSelector(state => state.session.user);
@@ -43,7 +43,7 @@ function Main() {
         )
     }
    
-    const body = appType ? 
+    const body = appType && appFolderId ? 
                 <ContentUpload 
                     token={token} 
                     folderId={appFolderId}
@@ -54,7 +54,7 @@ function Main() {
                 /> : 
                 buttons();
 
-    if (token && user.folderId) {
+    if (token) {
         return (
             <div className='main'>
                 <div className='profile'>
