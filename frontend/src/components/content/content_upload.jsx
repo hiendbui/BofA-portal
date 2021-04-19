@@ -7,17 +7,25 @@ import 'box-ui-elements/dist/uploader.css';
 
 
 
-function ContentUpload({token,folderId,quit}) {
+function ContentUpload({token,folderId,appType,fileType,nextFile,quit}) {
         return (
             <div className='content-uploader'>
+                <h1>Upload {fileType} for {appType} application</h1>
+                <br/>
                 <IntlProvider locale="en">
                     <ContentUploader
                         language='en-US'
-                        rootFolderId={folderId.toString()}
+                        rootFolderId={folderId?.toString()}
                         token={token}
                         logoUrl={'https://1000logos.net/wp-content/uploads/2016/10/Bank-of-America-logo.png'}
                         fileLimit={3}
-                        onClose={()=>quit(null)}
+                        onClose={()=> {
+                            nextFile(-1);
+                            quit(null);
+                        }}
+                        onComplete={()=>{
+                            nextFile(prevIdx=>prevIdx+1)
+                        }}
                     />
                 </IntlProvider>
             </div>

@@ -2,12 +2,12 @@ import { React } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import { fetchToken } from '../../actions/session_actions'
-import ContentUploader from 'box-ui-elements/es/elements/content-uploader';
-import 'box-ui-elements/dist/uploader.css';
+import ContentExplorer from 'box-ui-elements/es/elements/content-explorer';
+import 'box-ui-elements/dist/explorer.css';
 
 
 
-function ContentExplorer({token}) {
+function ContentExplore({token}) {
     return (
         <div>
             <IntlProvider locale="en">
@@ -37,4 +37,4 @@ function ContentExplorer({token}) {
     )
 };
 
-export default ContentExplorer;
+export default ContentExplore;

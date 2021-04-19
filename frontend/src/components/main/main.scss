@@ -32,7 +32,14 @@
     }
 }
 .content-uploader {
-    height: 60vh;
+    height: 50vh;
+    margin-left: auto;
+    margin-right: auto;
+    h1 {
+        font-size:20px;
+    }
+    width:1000px;
+    text-align: center;
 }
 
 .apply-btns>*{
