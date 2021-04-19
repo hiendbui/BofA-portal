@@ -47,25 +47,27 @@ router.post('/register', (req, res) => {
                     newUser.password = hash;
                     newUser.save()
                         .then(user => {
-                            const payload = { 
-                                id: user.id, 
-                                username: user.username, 
-                                firstName: user.firstName,
-                                lastName: user.lastName
-                            };
-                            //key expires in 1 hour
-                            jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
-                                res.json({
-                                    success: true,
-                                    token: "Bearer " + token
-                                });
-                            });
-                            
                             const folderId = `${user.lastName}, ${user.firstName}_${user.id}`
                             client.folders.create('0', folderId)
-                                .then(res => {
-                                    newUser.folderId = res.id;
-                                    newUser.save();
+                                .then(res2 => {
+                                    newUser.folderId = res2.id;
+                                    newUser.save()
+                                        .then(res3 => {
+                                            const payload = { 
+                                                id: user.id, 
+                                                username: user.username, 
+                                                firstName: user.firstName,
+                                                lastName: user.lastName,
+                                                folderId: user.folderId
+                                            };
+                                            //key expires in 1 hour
+                                            jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
+                                                res.json({
+                                                    success: true,
+                                                    token: "Bearer " + token
+                                                });
+                                            });
+                                        })
                                 })
                         })
                         .catch(err => console.log(err))
