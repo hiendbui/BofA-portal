@@ -1,16 +1,22 @@
-import { React } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { React, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { IntlProvider } from 'react-intl';
-import { fetchToken } from '../../actions/session_actions'
+import { deleteFolder } from '../../actions/folder_actions';
 import ContentUploader from 'box-ui-elements/es/elements/content-uploader';
 import 'box-ui-elements/dist/uploader.css';
 
 
 
 function ContentUpload({token,folderId,appType,fileType,nextFile,quit}) {
+    const buttonName = fileType === "Bank Statements" ? 'Submit' : 'Next';
+    const [buttonClass, toggleButton] = useState('disabled');
+    const dispatch = useDispatch();
+
         return (
             <div className='content-uploader'>
-                <h1>Upload {fileType} for {appType} application</h1>
+                <h1>{appType} Application</h1>
+                <br/>
+                <h2>Please upload your {fileType} below:</h2>
                 <br/>
                 <IntlProvider locale="en">
                     <ContentUploader
@@ -22,12 +28,24 @@ function ContentUpload({token,folderId,appType,fileType,nextFile,quit}) {
                         onClose={()=> {
                             nextFile(-1);
                             quit(null);
+                            dispatch(deleteFolder(folderId));
                         }}
-                        onComplete={()=>{
-                            nextFile(prevIdx=>prevIdx+1)
-                        }}
+                        onComplete={toggleButton}
                     />
                 </IntlProvider>
+                <button 
+                    className={`next ${buttonClass}`} 
+                    onClick={() => {
+                        if (buttonName === 'Submit') {
+                            nextFile(-1);
+                            quit(null);
+                            return;
+                        }
+                        toggleButton('disabled')
+                        nextFile(prevIdx=>prevIdx+1)
+                    }}
+                >{buttonName}
+                </button>
             </div>
         )
 
