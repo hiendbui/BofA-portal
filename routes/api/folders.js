@@ -18,4 +18,11 @@ router.post('/', (req, res) => {
   		.catch(error => {  console.log(error) })
 })
 
+router.delete('/', (req, res) => {
+	client.folders.delete(req.body.folderId.toString(), {recursive: true})
+		.then(() => {
+            res.json({ id: req.params.id, message: 'Deleted!' });
+        })
+})
+
 module.exports = router;
