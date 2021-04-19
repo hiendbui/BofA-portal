@@ -66,10 +66,6 @@ router.post('/register', (req, res) => {
                                 .then(res => {
                                     newUser.folderId = res.id;
                                     newUser.save();
-                                    client.folders.create(res.id, 'Identity Documents');
-                                    client.folders.create(res.id, 'Tax Returns');
-                                    client.folders.create(res.id, 'Income Documents');
-                                    client.folders.create(res.id, 'Bank Statements');
                                 })
                         })
                         .catch(err => console.log(err))
