@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { signup } from '../../actions/session_actions';
 import Loading from "../../assets/images/loading.gif";
@@ -31,9 +31,11 @@ function SignupForm() {
     dispatch(signup(formData));
   }
 
+  useEffect(()=>toggleLoading('hidden'), [errors]);
+
   function renderErrors() {
     return(
-      <ul className="errors">
+      <ul className="signup-errors">
         {Object.keys(errors).map((error, i) => (
           <li key={`error-${i}`}>
             {errors[error]}

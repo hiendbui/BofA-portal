@@ -69,10 +69,14 @@
         background-color: #0052C2;
     }
 }
-.errors {
+.errors, .signup-errors {
+    color:white;
     position: absolute;
     margin-top:-45px;
     font-size: 13px;
+}
+.signup-errors{
+    color: red;
 }
 .signin {
     margin-top:-70px;

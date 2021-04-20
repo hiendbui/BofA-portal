@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../../actions/session_actions';
 import Loading from "../../assets/images/loading.gif";
@@ -26,6 +26,7 @@ function LoginForm() {
     dispatch(login(formData));
   }
 
+  useEffect(()=>toggleLoading('hidden'), [errors]);
   // Render the session errors if there are any
   function renderErrors() {
     return(
