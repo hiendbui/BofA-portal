@@ -3,22 +3,24 @@ import { connect } from 'react-redux';
 import { Route, Redirect, withRouter } from 'react-router-dom';
 
 // Passed in from parent component or from mapStateToProps
-const Auth = ({ component: Component, path, loggedIn, exact }) => (
+const Auth = ({ component: Component, path, loggedIn, isAdmin, exact }) => (
   <Route path={path} exact={exact} render={(props) => (
     !loggedIn ? (
       <Component {...props} />
-    ) : (
+    ) : isAdmin ? (
         // Redirect to the home page if the user is authenticated
+      <Redirect to="/admin" />
+    ) : (
       <Redirect to="/portal" />
     )
   )} />
 );
 
-const Protected = ({ component: Component, loggedIn, ...rest }) => (
+const Protected = ({ component: Component, loggedIn, isAdmin, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      loggedIn  ? (
+      loggedIn && !isAdmin ? (
         <Component {...props} />
       ) : (
         // Redirect to the main page if the user is not logged in 
