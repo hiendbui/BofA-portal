@@ -21,7 +21,7 @@ let claims = {
   sub: config.enterpriseID,
   box_sub_type: "enterprise",
   aud: authenticationUrl,
-  jti: crypto.randomBytes(64).toString("hex"),
+  jti: crypto.randomBytes(64).toString("base64"),
   exp: Math.floor(Date.now() / 1000) + 45
 };
 
