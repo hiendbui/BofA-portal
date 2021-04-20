@@ -8,7 +8,7 @@ function SignupForm() {
   const errors = useSelector(state => state.errors.session);
   const dispatch = useDispatch();
 
-  const [loadingImgClass, toggleLoading] = useState('hidden')
+  const [loadingImgClass, toggleLoading] = useState('hidden');
 
   const [formData, setFormData] = useState({
     firstName:'',
@@ -27,7 +27,7 @@ function SignupForm() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    toggleLoading('loading')
+    toggleLoading('loading');
     dispatch(signup(formData));
   }
 
