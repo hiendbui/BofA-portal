@@ -11,7 +11,7 @@ router.post('/', (req, res) => {
 	const parentFolderId = req.body.parentFolderId.toString();
 	const folderPrefix = `${req.body.appType} Application`;
 	const date = new Date();
-	const now = `${date.getMonth()}-${date.getDate()}-${date.getFullYear()}, ${date.getHours()}:${date.getMinutes()}`
+	const now = `${date.getMonth()}-${date.getDate()}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
 	const folderName = folderPrefix + ' ' + now;
     client.folders.create(parentFolderId, folderName)
   		.then(response => {res.send(response.id)})
