@@ -2,15 +2,16 @@ import { React, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchToken } from '../../actions/session_actions';
 import { createFolder } from '../../actions/folder_actions';
-import ContentUpload from '../content/content_upload';
+import ContentUploaderContainer from '../content/content_uploader_container';
 import ProfilePic from "../../assets/images/profile_pic.jpg";
+import Loading from "../../assets/images/loading2.gif";
 import './main.scss'
 
 
 
 function Main() {
     const dispatch = useDispatch();
-    useEffect(()=>dispatch(fetchToken()),[]);
+    useEffect(() => dispatch(fetchToken()),[]);
    
     const token = useSelector(state => state.session.token);
     const user = useSelector(state => state.session.user);
@@ -25,9 +26,9 @@ function Main() {
     const [appType, changeAppType] = useState();
 
     function startApp(app) {
+        changeAppType(app);
         dispatch(createFolder(app,user.folderId));
         nextFileType(prevIdx => prevIdx + 1);
-        changeAppType(app);
     }
 
     const buttons = () => {
@@ -44,14 +45,15 @@ function Main() {
     }
    
     const body = appType && appFolderId ? 
-                <ContentUpload 
+                <ContentUploaderContainer 
                     token={token} 
                     folderId={appFolderId}
                     appType={appType}
                     fileType={fileTypes[fileTypeIdx]}
                     nextFile={nextFileType}
-                    quit={changeAppType} 
+                    changeAppType={changeAppType} 
                 /> : 
+                appType || appFolderId ? <img className={'loading2'} src={Loading} /> :
                 buttons();
 
     if (token) {
@@ -62,7 +64,6 @@ function Main() {
                     <h2>Bank of America Preferred Client</h2>
                     <h1>Hello, {user.firstName}</h1>  
                 </div>
-                <br/>
                 <br/>
                 {body}
             </div>
