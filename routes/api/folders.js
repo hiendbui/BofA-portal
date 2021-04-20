@@ -9,10 +9,10 @@ const client = sdk.getAppAuthClient('enterprise');
 
 router.post('/', (req, res) => {
 	const parentFolderId = req.body.parentFolderId.toString();
-	const folderSuffix = `${req.body.appType} Application`;
+	const folderPrefix = `${req.body.appType} Application`;
 	const date = new Date();
-	const today = `${date.getMonth()}-${date.getDate()}-${date.getFullYear()}`
-	const folderName = today + ' ' + folderSuffix;
+	const now = `${date.getMonth()}-${date.getDate()}-${date.getFullYear()}, ${date.getHours()}:${date.getMinutes()}`
+	const folderName = folderPrefix + ' ' + now;
     client.folders.create(parentFolderId, folderName)
   		.then(response => {res.send(response.id)})
   		.catch(error => {  console.log(error) })
