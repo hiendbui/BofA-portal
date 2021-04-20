@@ -41,7 +41,8 @@ function ContentExplore() {
                                 hasAccessStats: true,
                                 hasClassification: true,
                                 hasRetentionPolicy: true,
-                                hasVersions: true
+                                hasVersions: true,
+                                hasSkills: true
                             },
                             hasActivityFeed: true,
                             hasMetadata: true,
