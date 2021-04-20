@@ -41,14 +41,19 @@ function ContentExplore() {
                                 hasAccessStats: true,
                                 hasClassification: true,
                                 hasRetentionPolicy: true,
+                                hasVersions: true
                             },
-                            // features: FEATURES,
                             hasActivityFeed: true,
                             hasMetadata: true,
                             hasSkills: true,
                             hasVersions: true,
                         },
+                        contentOpenWithProps: {
+                             dropdownAlignment: 'left'   
+                        }
                     }}
+                    autoFocus={true}
+                    canSetShareAccess={false}
                     canShare={false}
                     canRename={false}
                     canDelete={false}
