@@ -7,7 +7,7 @@ const fs = require("fs");
 const axios = require('axios')
 const querystring = require('querystring');
 
-const config = require('../../config');
+const config = require('../../config/config.js');
 
 let key = {
   key: config.boxAppSettings.appAuth.privateKey,
