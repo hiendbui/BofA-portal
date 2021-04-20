@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchToken } from '../../actions/session_actions';
+import { generateToken } from '../../actions/session_actions';
 import { createFolder } from '../../actions/folder_actions';
 import ContentUploaderContainer from '../content/content_uploader_container';
 import ProfilePic from "../../assets/images/profile_pic.jpg";
@@ -11,7 +11,7 @@ import './main.scss'
 
 function Main() {
     const dispatch = useDispatch();
-    useEffect(() => dispatch(fetchToken()),[]);
+    useEffect(() => dispatch(generateToken()),[]);
    
     const token = useSelector(state => state.session.token);
     const user = useSelector(state => state.session.user);

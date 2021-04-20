@@ -1,7 +1,7 @@
 import { React, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IntlProvider } from 'react-intl';
-import { fetchToken, logout, clearErrors } from '../../actions/session_actions'
+import { generateToken, logout, clearErrors } from '../../actions/session_actions'
 import ContentExplorer from 'box-ui-elements/es/elements/content-explorer';
 import 'box-ui-elements/dist/explorer.css';
 import './content_explore.scss';
@@ -10,7 +10,7 @@ import './content_explore.scss';
 
 function ContentExplore() {
     const dispatch = useDispatch();
-    useEffect(() => dispatch(fetchToken()),[]);
+    useEffect(() => dispatch(generateToken()),[]);
    
     const token = useSelector(state => state.session.token);
     

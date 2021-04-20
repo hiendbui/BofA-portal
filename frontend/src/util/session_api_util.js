@@ -16,6 +16,10 @@ export const login = userData => {
   return axios.post('/api/users/login', userData);
 };
 
+export const generateToken = () => {
+  return axios.post('/api/token');
+};
+
 export const fetchToken = () => {
   return axios.get('/api/token');
 };

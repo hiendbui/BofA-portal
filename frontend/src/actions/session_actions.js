@@ -62,6 +62,12 @@ export const fetchToken = () => dispatch => (
     ))
 )
 
+export const generateToken = () => dispatch => (
+    APIUtil.generateToken().then(res => (
+        dispatch(receiveToken(res.data))
+    ))
+)
+
 
 export const logout = () => dispatch => {
     localStorage.removeItem('jwtToken')
