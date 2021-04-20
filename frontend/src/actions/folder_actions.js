@@ -8,7 +8,7 @@ const receiveFolderId = (folderId) => ({
     folderId
 });
 
-const removeFolderId = () => ({
+export const removeFolderId = () => ({
     type: REMOVE_FOLDER_ID
 });
 
