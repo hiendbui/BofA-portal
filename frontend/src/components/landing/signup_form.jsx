@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { signup } from '../../actions/session_actions';
+import Loading from "../../assets/images/loading.gif";
+
 
 function SignupForm() {
   const errors = useSelector(state => state.errors.session);
   const dispatch = useDispatch();
 
+  const [loadingImgClass, toggleLoading] = useState('hidden')
 
   const [formData, setFormData] = useState({
     firstName:'',
@@ -24,6 +27,7 @@ function SignupForm() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    toggleLoading('loading')
     dispatch(signup(formData));
   }
 
@@ -81,6 +85,7 @@ function SignupForm() {
           <input className= "submit" type="submit" value="Open Account" />
         </div>
       </form>
+          <img className={loadingImgClass} src={Loading} />
     </div>
   );
 }
