@@ -56,12 +56,6 @@ export const login = user => dispatch => (
     })
 )
 
-export const fetchToken = () => dispatch => (
-    APIUtil.fetchToken().then(res => (
-        dispatch(receiveToken(res.data))
-    ))
-)
-
 export const generateToken = () => dispatch => (
     APIUtil.generateToken().then(res => (
         dispatch(receiveToken(res.data))

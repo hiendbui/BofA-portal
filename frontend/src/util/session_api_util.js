@@ -19,7 +19,3 @@ export const login = userData => {
 export const generateToken = () => {
   return axios.post('/api/token');
 };
-
-export const fetchToken = () => {
-  return axios.get('/api/token');
-};

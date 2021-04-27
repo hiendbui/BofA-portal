@@ -15,6 +15,7 @@ let key = {
 };
 
 const authenticationUrl = "https://api.box.com/oauth2/token";
+
 let accessToken;
 router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
   let claims = {
@@ -49,10 +50,6 @@ router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
     accessToken = response.data.access_token
     res.send(accessToken)
   });
-})
-
-router.get('/', passport.authenticate('jwt', {session: false}), async (req, res) => {
-    res.send(accessToken);
 })
 
 module.exports = router;
