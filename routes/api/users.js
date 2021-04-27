@@ -40,13 +40,14 @@ router.post('/register', (req, res) => {
                 firstName: req.body.firstName,
                 lastName: req.body.lastName
             })
-
+            //create password digest for user for jwt strategy
             bcrypt.genSalt(10, (err, salt) => {
                 bcrypt.hash(newUser.password, salt, (err, hash) => {
                     if (err) throw err;
                     newUser.password = hash;
                     newUser.save()
                         .then(user => {
+                            //when user is created, a folder with their name and id is created
                             const folderId = `${user.lastName}, ${user.firstName}_${user.id}`
                             client.folders.create('0', folderId)
                                 .then(res2 => {

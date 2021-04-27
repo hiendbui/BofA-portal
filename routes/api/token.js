@@ -3,7 +3,6 @@ const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const crypto = require("crypto");
-const fs = require("fs");
 const axios = require('axios')
 const querystring = require('querystring');
 
@@ -16,6 +15,8 @@ let key = {
 
 const authenticationUrl = "https://api.box.com/oauth2/token";
 
+//creates access token for client to use to upload files (for customers)
+//or to access/view files (for employees)
 let accessToken;
 router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
   let claims = {

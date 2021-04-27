@@ -6,7 +6,7 @@ const BoxSDK = require('box-node-sdk');
 const sdk = BoxSDK.getPreconfiguredInstance(config);
 const client = sdk.getAppAuthClient('enterprise');
 
-
+//creates folder with name of application type, and date/time created
 router.post('/', (req, res) => {
 	const parentFolderId = req.body.parentFolderId.toString();
 	const folderPrefix = `${req.body.appType} Application`;
