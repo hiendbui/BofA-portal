@@ -6,7 +6,26 @@ import ContentExplorer from 'box-ui-elements/es/elements/content-explorer';
 import 'box-ui-elements/dist/explorer.css';
 import './content_explore.scss';
 
-
+const contentPreviewProps = {
+    contentSidebarProps: {
+        detailsSidebarProps: {
+            hasProperties: true,
+            hasNotices: true,
+            hasAccessStats: true,
+            hasClassification: true,
+            hasRetentionPolicy: true,
+            hasVersions: true,
+            hasSkills: true
+        },
+        hasActivityFeed: true,
+        hasMetadata: true,
+        hasSkills: true,
+        hasVersions: true,
+    },
+    contentOpenWithProps: {
+         dropdownAlignment: 'left'   
+    }
+}
 
 function ContentExplore() {
     const dispatch = useDispatch();
@@ -35,26 +54,7 @@ function ContentExplore() {
                 <ContentExplorer
                     className='content-explorer'
                     //sent configurations for admin controls/capabilities
-                    contentPreviewProps={{
-                        contentSidebarProps: {
-                            detailsSidebarProps: {
-                                hasProperties: true,
-                                hasNotices: true,
-                                hasAccessStats: true,
-                                hasClassification: true,
-                                hasRetentionPolicy: true,
-                                hasVersions: true,
-                                hasSkills: true
-                            },
-                            hasActivityFeed: true,
-                            hasMetadata: true,
-                            hasSkills: true,
-                            hasVersions: true,
-                        },
-                        contentOpenWithProps: {
-                             dropdownAlignment: 'left'   
-                        }
-                    }}
+                    contentPreviewProps={contentPreviewProps}
                     autoFocus={true}
                     canSetShareAccess={false}
                     canShare={false}
