@@ -10,6 +10,7 @@ import './content_explore.scss';
 
 function ContentExplore() {
     const dispatch = useDispatch();
+    //create and fetch token on component mount
     useEffect(() => dispatch(generateToken()),[]);
    
     const token = useSelector(state => state.session.token);
@@ -33,6 +34,7 @@ function ContentExplore() {
             <IntlProvider locale="en">
                 <ContentExplorer
                     className='content-explorer'
+                    //sent configurations for admin controls/capabilities
                     contentPreviewProps={{
                         contentSidebarProps: {
                             detailsSidebarProps: {
