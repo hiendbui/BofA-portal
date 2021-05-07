@@ -11,6 +11,8 @@ function Landing() {
   const dispatch = useDispatch();
 
   const [formType, toggleForm] = useState('login')
+
+  //form name and btn name based on form type
   const otherFormType = formType === 'login' ? 'signup' : 'login';
   const sessionForm = formType === 'login' ? <LoginForm/> : <SignupForm/>
   const buttonValue = formType === 'login' ? 'Open an Account' : 'Log into Account'

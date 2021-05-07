@@ -11,26 +11,34 @@ import './main.scss'
 
 function Main() {
     const dispatch = useDispatch();
+    //create and fetch token on component mount
     useEffect(() => dispatch(generateToken()),[]);
    
     const token = useSelector(state => state.session.token);
     const user = useSelector(state => state.session.user);
+    //fetch folder associated with current user
     const appFolderId = useSelector(state => state.folder.folderId);
-    const [fileTypeIdx, nextFileType] = useState(-1);
+
+    const [fileTypeIdx, nextFileType] = useState();
     const fileTypes = [
         'Identity Document',
         'Income Documents',
         'Tax Returns',
         'Bank Statements'
     ]
+
     const [appType, changeAppType] = useState();
 
     function startApp(app) {
+        //sets type of application
         changeAppType(app);
+        //creates the subfolder for files to be uploaded to for application
         dispatch(createFolder(app,user.folderId));
-        nextFileType(prevIdx => prevIdx + 1);
+        //set file type idx to 0 to start with first fileType
+        nextFileType(0);
     }
 
+    //options for loan applications to be displayed when page first renders
     const buttons = () => {
         return (
             <div className="body">
@@ -43,7 +51,10 @@ function Main() {
             </div>
         )
     }
-   
+    
+    //render buttons when not in application,
+    //render loading gif when app is initialized and req is made to create folder
+    //render content uploader for application when folderId is received
     const body = appType && appFolderId ? 
                 <ContentUploaderContainer 
                     token={token} 
@@ -56,6 +67,7 @@ function Main() {
                 appType || appFolderId ? <img className={'loading2'} src={Loading} /> :
                 buttons();
 
+    //display once token is fetched
     if (token) {
         return (
             <div className='main'>
