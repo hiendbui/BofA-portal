@@ -53,7 +53,7 @@ function ContentExplore() {
             <IntlProvider locale="en">
                 <ContentExplorer
                     className='content-explorer'
-                    //sent configurations for admin controls/capabilities
+                    //set configurations for admin controls/capabilities
                     contentPreviewProps={contentPreviewProps}
                     autoFocus={true}
                     canSetShareAccess={false}
