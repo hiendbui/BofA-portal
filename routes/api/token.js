@@ -16,27 +16,29 @@ let key = {
 const authenticationUrl = "https://api.box.com/oauth2/token";
 
 let accessToken;
-let claims = {
-    iss: config.boxAppSettings.clientID,
-    sub: config.enterpriseID,
-    box_sub_type: "enterprise",
-    aud: authenticationUrl,
-    jti: crypto.randomBytes(64).toString("hex"),
-    exp: Math.floor(Date.now() / 1000) + 45
-};
-  
-let keyId = config.boxAppSettings.appAuth.publicKeyID
-  
-let headers = {
-    'algorithm': 'RS512',
-    'keyid': keyId,
-}
-  
-let assertion = jwt.sign(claims, key, headers)
+
 
 //creates access token for client to use to upload files (for customers)
 //or to access/view files (for employees)
 router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
+  let claims = {
+      iss: config.boxAppSettings.clientID,
+      sub: config.enterpriseID,
+      box_sub_type: "enterprise",
+      aud: authenticationUrl,
+      jti: crypto.randomBytes(64).toString("hex"),
+      exp: Math.floor(Date.now() / 1000) + 45
+  };
+    
+  let keyId = config.boxAppSettings.appAuth.publicKeyID
+    
+  let headers = {
+      'algorithm': 'RS512',
+      'keyid': keyId,
+  }
+
+  let assertion = jwt.sign(claims, key, headers)
+  
   axios.post(
       authenticationUrl,
       querystring.stringify({
@@ -49,7 +51,8 @@ router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
   .then(response => {
     accessToken = response.data.access_token
     res.send(accessToken)
-  });
+  })
+  .catch(err => console.log(err));
 })
 
 module.exports = router;
