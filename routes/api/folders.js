@@ -13,7 +13,7 @@ router.post('/', (req, res) => {
 	const date = new Date();
 	const now = `${date.getMonth()}-${date.getDate()}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
 	const folderName = folderPrefix + ' ' + now;
-    client.folders.create(parentFolderId, folderName)
+    	client.folders.create(parentFolderId, folderName)
   		.then(response => {res.send(response.id)})
   		.catch(error => {  console.log(error) })
 })
@@ -21,8 +21,8 @@ router.post('/', (req, res) => {
 router.delete('/', (req, res) => {
 	client.folders.delete(req.body.folderId.toString(), {recursive: true})
 		.then(() => {
-            res.json({ id: req.params.id, message: 'Deleted!' });
-        })
+            		res.json({ id: req.params.id, message: 'Deleted!' });
+        	})
 })
 
 module.exports = router;
